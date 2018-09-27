@@ -32,10 +32,15 @@ function getCounters(filePath, tempCounter, port) {
     return new Promise((resolve, reject) => {
         readFile(filePath)
         .then((data) => {
-            resolve({
+            let value = {
                 tempCounter: tempCounter,
-                hardCounter: data[port]
-            })
+            }
+
+            Object.keys(data).map(function(objectKey, index) {
+                value[objectKey] = data[objectKey];
+            });          
+
+            resolve(value)
 
         }).catch((err) => {
             reject(err)

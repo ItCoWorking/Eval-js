@@ -35,6 +35,7 @@ app.post('/form', function (req, res) {
   res.redirect('/');
 })
 
+
 app.get('/counter', function (req, res) {
     utils.getCounters(filePath, tempCount)
          .then((data) => {
@@ -45,6 +46,9 @@ app.get('/counter', function (req, res) {
          })
 })
 
+/**
+ * Index route
+ */
 app.get('/', function (req, res) {
   utils.getCounters(filePath, tempCount, port)
          .then((data) => {
@@ -93,7 +97,6 @@ function resetTempCounter() {
  * @return {[void]}
  */
 const filePath = 'database/db.json'
-
 function hardCounter(req, res, next) {
     if (req.body.hasOwnProperty('alltime')){
       next();
@@ -124,6 +127,10 @@ function hardCounter(req, res, next) {
     next()
 }
 
+/**
+ * This reset the hard counter for the actual port
+ * @return {[void]} 
+ */
 function resetHardCounter() {
    utils.readFile(filePath)
     .then((data) => {
@@ -136,6 +143,9 @@ function resetHardCounter() {
     
 }
 
+/**
+ * Default 404 route
+ */
 app.get('*', (req, res) => {
     res.status(404).send()
 })
