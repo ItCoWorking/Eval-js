@@ -10,7 +10,7 @@ function readFile(filePath) {
                 reject(err);
                 return;
             }
-            resolve(data !== '' ? JSON.parse(data) : { total: 0 });
+            resolve(data !== '' ? JSON.parse(data) : {});
        })
     })
 }

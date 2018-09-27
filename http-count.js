@@ -94,8 +94,6 @@ function resetTempCounter() {
  */
 const filePath = 'database/db.json'
 
-let value = { port: 1 }
-
 function hardCounter(req, res, next) {
     if (req.body.hasOwnProperty('alltime')){
       next();
@@ -103,14 +101,22 @@ function hardCounter(req, res, next) {
     }  
     utils.readFile(filePath)
     .then((data) => {
-        value[port] = data[port] + 1;
-        utils.writeFile(filePath, value)
+        //get the old value 
+        if(data.hasOwnProperty(port)){
+            //update the old value
+            data[port] += 1
+        } else {
+            data[port] = 1
+        }
+        utils.writeFile(filePath, data)
              .catch((err) => {
                 console.error(err);
              })
             
     }).catch((err) => {
         if (err.hasOwnProperty('code') && err.code === 'ENOENT') {
+            let value = {};
+            value[port] = 1;
             utils.writeFile(filePath, value)
                  .catch((err) => {
                     console.error(err);
