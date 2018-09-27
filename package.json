@@ -6,6 +6,10 @@
   "license": "MIT",
   "dependencies": {
     "browser-sync": "^2.24.7",
+    "chalk": "^2.4.1",
     "nodemon": "^1.18.4"
+  },
+  "scripts": {
+    "2.3" : "node_modules/nodemon/bin/nodemon.js are-ready.js"
   }
 }
