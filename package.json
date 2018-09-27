@@ -6,6 +6,7 @@
   "license": "MIT",
   "dependencies": {
     "browser-sync": "^2.24.7",
+    "chalk": "^2.4.1",
     "nodemon": "^1.18.4"
   }
 }
