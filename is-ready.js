@@ -18,6 +18,8 @@ fs.stat(dirPath, (err, stats) => {
 })
 
 // 2.2
+const nodeReady = require(__dirname + '/is-ready-test.js');
+
 nodeReady(dirPath)
 	.then( () => {
 		log(chalk.yellow('maybe'));
@@ -31,16 +33,3 @@ nodeReady(dirPath)
 		}
 	});
 
-function nodeReady(dirPath) {
-	return new Promise((resolve, reject) => {
-		fs.stat(dirPath, (err, stats) => {
-			if(err && err.hasOwnProperty('code') && err.code === 'ENOENT') {
-				reject(err);
-			} else if(err) {
-				reject(err);
-			} else {
-				resolve();
-			}
-		})
-	})
-}
