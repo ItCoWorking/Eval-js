@@ -40,7 +40,6 @@ app.post('/form', function (req, res) {
     if (req.body.hasOwnProperty('alltime')) {
         resetHardCounter();
     }
-  res.sendFile(__dirname + '/views/index.html');
   res.redirect('/');
 })
 
@@ -101,9 +100,7 @@ function hardCounter(req, res, next) {
     }  
     utils.readFile(filePath)
     .then((data) => {
-        //get the old value 
         if(data.hasOwnProperty(port)){
-            //update the old value
             data[port] += 1
         } else {
             data[port] = 1
@@ -127,11 +124,15 @@ function hardCounter(req, res, next) {
 }
 
 function resetHardCounter() {
-    value[process.argv[3]] = 1;
-    utils.writeFile(filePath, value)
-         .catch((err) => {
-            console.error(err);
-         })
+   utils.readFile(filePath)
+    .then((data) => {
+        data[port] = 1;
+        utils.writeFile(filePath, data)
+             .catch((err) => {
+                console.error(err);
+             })
+    })
+    
 }
 
 app.get('*', (req, res) => {
