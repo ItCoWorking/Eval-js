@@ -8,10 +8,12 @@ const dirPath = `${__dirname}/node_module`;
 fs.stat(dirPath, (err, stats) => {
 	if(err && err.hasOwnProperty('code') && err.code === 'ENOENT') {
 		throw new Error(chalk.red('not ready'));
+		console.error(err);
 		process.exit(1);
 	} else if(err) {
 		log(chalk.yellow('maybe'));
 		throw new Error(chalk.red(err));
+		console.error(err);
 	} else {
 		log(chalk.yellow('maybe'));
 	}
@@ -25,11 +27,12 @@ nodeReady(dirPath)
 		log(chalk.yellow('maybe'));
 	})
 	.catch(err => {
-		if(err && err.hasOwnProperty('code') && err.code === 'ENOENT') {
+		if(err.hasOwnProperty('code') && err.code === 'ENOENT') {
 			log(chalk.red('not ready'));
-			process.exit(1);
 		} else {
 			log(chalk.yellow('maybe'));
 		}
+		console.error(err);
+		process.exit(1);
 	});
 
