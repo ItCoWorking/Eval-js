@@ -1,0 +1,20 @@
+.title{
+    background-color: yellow;
+    color: red;
+}
+
+.center{
+    text-align: center;
+}
+
+.blink {
+    color:red;
+    background-color: green;
+    border: solid green;
+    text-decoration: overline underline line-through;
+    animation: colorblink 2s infinite;
+}
+@keyframes colorblink {
+    0% { border: solid purple; }
+    50% { color:green; background-color: yellow;}
+}

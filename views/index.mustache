@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Foobar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="blink">
+    <h1 class="title blink center">MotherFuckingJsWebsite</h1>
+
+    <h1>TempCounters: {{ counters.tempCounter }}</h1> 
+    <h1>hardCounters: {{ counters.hardCounter }}</h1> 
+    <form action="/form" method="POST" class="center">
+        <div>
+            <label for="name">Current</label>
+            <input type="checkbox" id="current" name="current">
+        </div>
+        <div>
+            <label for="name">All Time</label>
+            <input type="checkbox" id="alltime" name="alltime" >
+        </div>
+        <div>
+            <button>Reset</button>
+        </div>
+    </form>
+</body>
+</html>
