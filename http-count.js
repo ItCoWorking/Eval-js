@@ -23,7 +23,7 @@ app.use(
 )
 
 app.get('/', function (req, res) {
-  utils.getCounters(filePath, tempCount)
+  utils.getCounters(filePath, tempCount, port)
          .then((data) => {
             res.render('index', {counters: data})
          })

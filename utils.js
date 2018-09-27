@@ -28,13 +28,13 @@ function writeFile(filePath, data) {
     })
 }
 
-function getCounters(filePath, tempCounter) {
+function getCounters(filePath, tempCounter, port) {
     return new Promise((resolve, reject) => {
         readFile(filePath)
         .then((data) => {
             resolve({
                 tempCounter: tempCounter,
-                hardCounter: data.total
+                hardCounter: data[port]
             })
 
         }).catch((err) => {
