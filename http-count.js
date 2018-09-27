@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const utils = require('./utils');
+const morgan = require('morgan');
 const mustacheExpress = require('mustache-express');
 
 if (process.argv[2] !== '-p' || process.argv[3] === undefined) {
@@ -16,21 +17,12 @@ app.set('views', __dirname + '/views');
 
 app.use(
     express.static(__dirname + '/public'),
+    morgan('short'),
     express.urlencoded(), 
     express.json(), 
     tempCounter, 
     hardCounter
 )
-
-app.get('/', function (req, res) {
-  utils.getCounters(filePath, tempCount, port)
-         .then((data) => {
-            res.render('index', {counters: data})
-         })
-         .catch((err) => {
-            console.error(err)
-         })
-})
 
 app.post('/form', function (req, res) {
     if (req.body.hasOwnProperty('current')) {
@@ -53,6 +45,15 @@ app.get('/counter', function (req, res) {
          })
 })
 
+app.get('/', function (req, res) {
+  utils.getCounters(filePath, tempCount, port)
+         .then((data) => {
+            res.render('index', {counters: data})
+         })
+         .catch((err) => {
+            console.error(err)
+         })
+})
 
 /**
  * Temporary counter
@@ -64,7 +65,7 @@ app.get('/counter', function (req, res) {
  * @return {[void]}
  */
 function tempCounter(req, res, next) {
-    if (!req.body.hasOwnProperty('current')){
+      if (!req.body.hasOwnProperty('current')){
         tempCount ++
     }  
     next();
@@ -136,7 +137,7 @@ function resetHardCounter() {
 }
 
 app.get('*', (req, res) => {
-    res.send('<a href="/">Accueil</a>')
+    res.status(404).send()
 })
 
 
